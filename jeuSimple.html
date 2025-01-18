@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeu de Devine le Nombre</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #ff512f, #dd2476);
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        p {
+            color: #555;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+        input {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            background-color: #ff6f61;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            background-color: #ff3b2f;
+        }
+        #message {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Jeu de Devine le Nombre</h1>
+        <p>Devine un nombre entre 1 et 100</p>
+        <input type="number" id="guessInput" placeholder="Entrez votre nombre">
+        <button id="guessButton">Deviner</button>
+        <p id="message"></p>
+    </div>
+    <script>
+        let randomNumber = Math.floor(Math.random() * 100) + 1;
+        const guessInput = document.getElementById('guessInput');
+        const guessButton = document.getElementById('guessButton');
+        const message = document.getElementById('message');
+
+        guessButton.addEventListener('click', () => {
+            const userGuess = parseInt(guessInput.value);
+            if (isNaN(userGuess)) {
+                message.textContent = 'Veuillez entrer un nombre valide.';
+                message.style.color = 'red';
+                return;
+            }
+
+            if (userGuess < randomNumber) {
+                message.textContent = 'Trop bas ! Essayez encore.';
+                message.style.color = 'orange';
+            } else if (userGuess > randomNumber) {
+                message.textContent = 'Trop haut ! Essayez encore.';
+                message.style.color = 'orange';
+            } else {
+                message.textContent = `Félicitations ! Vous avez deviné le nombre ${randomNumber}.`;
+                message.style.color = 'green';
+                guessButton.disabled = true;
+            }
+        });
+    </script>
+</body>
+</html>
